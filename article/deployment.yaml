@@ -1,0 +1,26 @@
+apiVersion: apps/v1 
+kind: Deployment // тип контроллера
+metadata: 
+  name: first-deployment // задаем namespase поду, при помощи которых можно разделить поды
+  labels: 
+    app: my-web-app // задаем метку поду
+spec: 
+  replicas: 2 // указываем количество реплик
+  selector: 
+    matchLabels: 
+      app: my-web-app
+  template: 
+    metadata: 
+      labels: 
+        app: my-web-app
+    spec: // описание контейнера
+      containers: 
+      - name: my-pod
+        image: ifilyaninitmo/itdt-contained-frontend:master
+        ports: 
+        - containerPort: 3000
+        env: 
+        - name: REACT_APP_USERNAME 
+          value: "progML" 
+        - name: REACT_APP_COMPANY_NAME 
+          value: "itmo"
